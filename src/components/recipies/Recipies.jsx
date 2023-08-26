@@ -26,7 +26,6 @@ const Recipies = () => {
           </span>
         </div>
       </Link>
-
       <div className={classes.recipeContainer}>
         <span className={classes.recipeImg}>
           <img src={img2} />

@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ChakraProvider } from "@chakra-ui/react";
 import RecipiesDetail from "./components/recipies-detail/RecipiesDetail";
 
 import Home from "./components/home/Home";
@@ -8,12 +9,12 @@ import Login from "./components/login/Login";
 import Signup from "./components/signup/Signup";
 
 const LoginPage = () => {
-  return <Login />
-}
+  return <Login />;
+};
 
 const SignupPage = () => {
-  return <Signup />
-}
+  return <Signup />;
+};
 
 const Homepage = () => {
   return <Home />;
@@ -24,25 +25,25 @@ const RecipiesDetailPage = () => {
 };
 
 const UserRecipiesPage = () => {
-  return <UserRecipies />
-}
+  return <UserRecipies />;
+};
 
 const IngredientsPage = () => {
-  return <Ingredients />
-}
+  return <Ingredients />;
+};
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/recipies-detail" element={<RecipiesDetailPage />} />
-        <Route path="/user-recipies" element={<UserRecipiesPage />} />
-        <Route path="/ingredients" element={<IngredientsPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-      </Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/recipies-detail" element={<RecipiesDetailPage />} />
+          <Route path="/user-recipies" element={<UserRecipiesPage />} />
+          <Route path="/ingredients" element={<IngredientsPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+        </Routes>
+      </BrowserRouter>
   );
 }
 

@@ -1,32 +1,45 @@
+import { Button } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import api from "../../services/api";
 import Navbar from "../navbar/Navbar";
 import classes from "./Ingredients.module.css";
 
 const Ingredients = () => {
-  
   const [ingredients, setIngredient] = useState("");
-  console.log(ingredients);
-  
-  const clearIngredients = () => {
-    setIngredient("");
-  };
-  
-  const ingredient = ingredients;
+  const [addIngInput, setAddIngInput] = useState(false);
 
-  const data = {
-    ingredient
+  const addIngredient = () => {
+    setAddIngInput(true);
+  };
+
+  const closeInput = () => {
+    setAddIngInput(false);
+  };
+
+  let array = [];
+  let selectedIngredients = document.querySelectorAll(
+    "input[type=checkbox]:checked"
+  );
+  for (let i = 0; i < selectedIngredients.length; i++) {
+    array.push(selectedIngredients[i].value);
   }
-  
-  console.log(data)
+  console.log(array);
+
+  const clearIngredients = () => {
+    for (let i = 0; i < selectedIngredients.length; i++) {
+      selectedIngredients[i].checked = false;
+    }
+    array.length = 0;
+    console.log(array);
+  };
 
   const handleSubmit = async () => {
-    await api.post('/create_recipe', {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
+    await api.post("/create_recipe", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(array),
+    });
   };
 
   return (
@@ -40,7 +53,7 @@ const Ingredients = () => {
             type="checkbox"
             value="Ovo"
             id="Ovo"
-            name="categoryfilter"
+            name="ingredient"
             onChange={(e) => setIngredient(e.target.value)}
           />
         </label>
@@ -50,7 +63,7 @@ const Ingredients = () => {
             type="checkbox"
             value="Farinha"
             id="Farinha"
-            name="categoryfilter"
+            name="ingredient"
             onChange={(e) => setIngredient(e.target.value)}
           />
         </label>
@@ -60,7 +73,7 @@ const Ingredients = () => {
             type="checkbox"
             value="Tomate"
             id="Tomate"
-            name="categoryfilter"
+            name="ingredient"
             onChange={(e) => setIngredient(e.target.value)}
           />
         </label>
@@ -71,7 +84,7 @@ const Ingredients = () => {
             type="checkbox"
             value="Milho"
             id="Milho"
-            name="categoryfilter"
+            name="ingredient"
             onChange={(e) => setIngredient(e.target.value)}
           />
         </label>
@@ -81,7 +94,7 @@ const Ingredients = () => {
             type="checkbox"
             value="Frango"
             id="Frango"
-            name="categoryfilter"
+            name="ingredient"
             onChange={(e) => setIngredient(e.target.value)}
           />
         </label>
@@ -91,7 +104,7 @@ const Ingredients = () => {
             type="checkbox"
             value="Acelga"
             id="Acelga"
-            name="categoryfilter"
+            name="ingredient"
             onChange={(e) => setIngredient(e.target.value)}
           />
         </label>
@@ -101,7 +114,7 @@ const Ingredients = () => {
             type="checkbox"
             value="Peixe"
             id="Peixe"
-            name="categoryfilter"
+            name="ingredient"
             onChange={(e) => setIngredient(e.target.value)}
           />
         </label>
@@ -111,7 +124,7 @@ const Ingredients = () => {
             type="checkbox"
             value="Cebola"
             id="Cebola"
-            name="categoryfilter"
+            name="ingredient"
             onChange={(e) => setIngredient(e.target.value)}
           />
         </label>
@@ -121,7 +134,7 @@ const Ingredients = () => {
             type="checkbox"
             value="Calabresa"
             id="Calabresa"
-            name="categoryfilter"
+            name="ingredient"
             onChange={(e) => setIngredient(e.target.value)}
           />
         </label>
@@ -132,7 +145,7 @@ const Ingredients = () => {
             type="checkbox"
             value="Cenoura"
             id="Cenoura"
-            name="categoryfilter"
+            name="ingredient"
             onChange={(e) => setIngredient(e.target.value)}
           />
         </label>
@@ -142,7 +155,7 @@ const Ingredients = () => {
             type="checkbox"
             value="Espinafre"
             id="Espinafre"
-            name="categoryfilter"
+            name="ingredient"
             onChange={(e) => setIngredient(e.target.value)}
           />
         </label>
@@ -152,24 +165,51 @@ const Ingredients = () => {
             type="checkbox"
             value="Berinjela"
             id="Berinjela"
-            name="categoryfilter"
+            name="ingredient"
             onChange={(e) => setIngredient(e.target.value)}
           />
         </label>
       </section>
       <section className={classes.footer}>
+        {addIngInput ? (
+          <span className={classes.addIngInput}>
+            <input
+              type="text"
+              placeholder="Digite o ingrediente desejado"
+            />
+            <button onClick={closeInput} className={classes.closeButton}>
+              X
+            </button>
+            <button
+              type="button"
+              className={classes.addButton}
+            >
+              Adicionar
+            </button>
+          </span>
+        ) : (
+          ""
+        )}
         <div className={classes.ingredientsButtons}>
           <button
-            type="reset"
+            type="button"
             className={classes.deleteButton}
             onClick={clearIngredients}
           >
             Limpar selecionados
           </button>
-          <button type="button" onClick={handleSubmit} className={classes.addIngredientButton}>
+          <button
+            type="button"
+            onClick={addIngredient}
+            className={classes.addIngredientButton}
+          >
             Adicionar ingrediente
           </button>
-          <button type="button" className={classes.nextButton}>
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className={classes.nextButton}
+          >
             Próxima etapa
           </button>
         </div>
