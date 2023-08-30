@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Navbar from "../navbar/Navbar";
+import logo from "../../assets/ChefHubIcon.png";
 
 import classes from "./Login.module.css";
 import background from "../../assets/backgroundlogin.png";
@@ -9,12 +9,19 @@ import background2 from "../../assets/backgroundlogin2.png";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  console.log(email)
-  console.log(password)
+  console.log(email);
+  console.log(password);
 
   return (
     <>
-      <Navbar />
+      <div className={classes.navbar}>
+        <Link to={"/"}>
+          <span className={classes.logo}>
+            <img src={logo} />
+            <h1 className={classes.titleLogo}>ChefHub</h1>
+          </span>
+        </Link>
+      </div>
       <h1 className={classes.title}>Login</h1>
       <div className={classes.loginBody}>
         <form className={classes.formContainer}>
@@ -35,10 +42,7 @@ const Login = () => {
             }}
           />
         </form>
-        <button
-          type="submit"
-          className={classes.loginButton}
-        >
+        <button type="submit" className={classes.loginButton}>
           Login
         </button>
         <p className={classes.linkToSignup}>

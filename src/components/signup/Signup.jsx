@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import Navbar from "../navbar/Navbar";
 import api from "../../services/api";
 
 import classes from "./Signup.module.css";
 import background from "../../assets/backgroundlogin.png";
 import background2 from "../../assets/backgroundlogin2.png";
+import logo from '../../assets/ChefHubIcon.png';
 
 const Signup = () => {
 
@@ -23,7 +23,14 @@ const Signup = () => {
 
   return (
     <>
-      <Navbar />
+      <div className={classes.navbar}>
+        <Link to={"/"}>
+          <span className={classes.logo}>
+            <img src={logo} />
+            <h1 className={classes.titleLogo}>ChefHub</h1>
+          </span>
+        </Link>
+      </div>
       <h1 className={classes.title}>Criar conta</h1>
       <div className={classes.signupBody}>
         <form className={classes.formContainer}>
