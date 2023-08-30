@@ -1,158 +1,88 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import api from "../../services/api";
 import Navbar from "../navbar/Navbar";
-import classes from "./Ingredients.module.css";
+import classes from "./Preferences.module.css";
 import trash from "../../assets/trash.svg";
 
-const Ingredients = () => {
-  const [ingredients, setIngredient] = useState("");
-  const [addIngInput, setAddIngInput] = useState(false);
+const Preferences = () => {
+  const [preference, setPreference] = useState("");
+  const [addPrefInput, setAddPrefInput] = useState(false);
 
-  const addIngredient = () => {
-    setAddIngInput(true);
+  const addPreference = () => {
+    setAddPrefInput(true);
   };
 
   const closeInput = () => {
-    setAddIngInput(false);
+    setAddPrefInput(false);
   };
 
   const deleteIngredient = () => {};
 
   let array = [];
-  let selectedIngredients = document.querySelectorAll(
+  let selectedPreferences = document.querySelectorAll(
     "input[type=checkbox]:checked"
   );
-  for (let i = 0; i < selectedIngredients.length; i++) {
-    array.push(selectedIngredients[i].value);
+  for (let i = 0; i < selectedPreferences.length; i++) {
+    array.push(selectedPreferences[i].value);
   }
   console.log(array);
 
   const clearIngredients = () => {
-    for (let i = 0; i < selectedIngredients.length; i++) {
-      selectedIngredients[i].checked = false;
+    for (let i = 0; i < selectedPreferences.length; i++) {
+      selectedPreferences[i].checked = false;
     }
     array.length = 0;
     console.log(array);
   };
 
+  const handleSubmit = async () => {
+    await api.post("/create_recipe", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(array),
+    });
+  };
+
   return (
     <>
       <Navbar />
-      <h1 className={classes.title}>Escolha os ingredientes</h1>
-      <section className={classes.ingredientsBody}>
+      <h1 className={classes.title}>Escolha suas preferências culinárias</h1>
+      <section className={classes.preferenceBody}>
         <label className={classes.checkboxFilter}>
-          Ovo
+          Japonesa
           <input
             type="checkbox"
-            value="Ovo"
-            id="Ovo"
-            name="ingredient"
-            onChange={(e) => setIngredient(e.target.value)}
+            value="Japonesa"
+            id="Japonesa"
+            name="preference"
+            onChange={(e) => setPreference(e.target.value)}
           />
           <button className={classes.trashIconBtn} onClick={deleteIngredient}>
             <img src={trash} className={classes.trashIcon} />
           </button>
         </label>
         <label className={classes.checkboxFilter}>
-          Farinha
+          Chinesa
           <input
             type="checkbox"
-            value="Farinha"
-            id="Farinha"
-            name="ingredient"
-            onChange={(e) => setIngredient(e.target.value)}
+            value="Chinesa"
+            id="Chinesa"
+            name="preference"
+            onChange={(e) => setPreference(e.target.value)}
           />
           <button className={classes.trashIconBtn} onClick={deleteIngredient}>
             <img src={trash} className={classes.trashIcon} />
           </button>
         </label>
         <label className={classes.checkboxFilter}>
-          Tomate
+          Italiana
           <input
             type="checkbox"
-            value="Tomate"
-            id="Tomate"
-            name="ingredient"
-            onChange={(e) => setIngredient(e.target.value)}
-          />
-          <button className={classes.trashIconBtn} onClick={deleteIngredient}>
-            <img src={trash} className={classes.trashIcon} />
-          </button>
-        </label>
-
-        <label className={classes.checkboxFilter}>
-          Milho
-          <input
-            type="checkbox"
-            value="Milho"
-            id="Milho"
-            name="ingredient"
-            onChange={(e) => setIngredient(e.target.value)}
-          />
-          <button className={classes.trashIconBtn} onClick={deleteIngredient}>
-            <img src={trash} className={classes.trashIcon} />
-          </button>
-        </label>
-        <label className={classes.checkboxFilter}>
-          Frango
-          <input
-            type="checkbox"
-            value="Frango"
-            id="Frango"
-            name="ingredient"
-            onChange={(e) => setIngredient(e.target.value)}
-          />
-          <button className={classes.trashIconBtn} onClick={deleteIngredient}>
-            <img src={trash} className={classes.trashIcon} />
-          </button>
-        </label>
-        <label className={classes.checkboxFilter}>
-          Acelga
-          <input
-            type="checkbox"
-            value="Acelga"
-            id="Acelga"
-            name="ingredient"
-            onChange={(e) => setIngredient(e.target.value)}
-          />
-          <button className={classes.trashIconBtn} onClick={deleteIngredient}>
-            <img src={trash} className={classes.trashIcon} />
-          </button>
-        </label>
-        <label className={classes.checkboxFilter}>
-          Peixe
-          <input
-            type="checkbox"
-            value="Peixe"
-            id="Peixe"
-            name="ingredient"
-            onChange={(e) => setIngredient(e.target.value)}
-          />
-          <button className={classes.trashIconBtn} onClick={deleteIngredient}>
-            <img src={trash} className={classes.trashIcon} />
-          </button>
-        </label>
-        <label className={classes.checkboxFilter}>
-          Cebola
-          <input
-            type="checkbox"
-            value="Cebola"
-            id="Cebola"
-            name="ingredient"
-            onChange={(e) => setIngredient(e.target.value)}
-          />
-          <button className={classes.trashIconBtn} onClick={deleteIngredient}>
-            <img src={trash} className={classes.trashIcon} />
-          </button>
-        </label>
-        <label className={classes.checkboxFilter}>
-          Calabresa
-          <input
-            type="checkbox"
-            value="Calabresa"
-            id="Calabresa"
-            name="ingredient"
-            onChange={(e) => setIngredient(e.target.value)}
+            value="Italiana"
+            id="Italiana"
+            name="preference"
+            onChange={(e) => setPreference(e.target.value)}
           />
           <button className={classes.trashIconBtn} onClick={deleteIngredient}>
             <img src={trash} className={classes.trashIcon} />
@@ -160,39 +90,118 @@ const Ingredients = () => {
         </label>
 
         <label className={classes.checkboxFilter}>
-          Cenoura
+          Brasileira
           <input
             type="checkbox"
-            value="Cenoura"
-            id="Cenoura"
-            name="ingredient"
-            onChange={(e) => setIngredient(e.target.value)}
+            value="Brasileira"
+            id="Brasileira"
+            name="preference"
+            onChange={(e) => setPreference(e.target.value)}
           />
           <button className={classes.trashIconBtn} onClick={deleteIngredient}>
             <img src={trash} className={classes.trashIcon} />
           </button>
         </label>
         <label className={classes.checkboxFilter}>
-          Espinafre
+          Tailandesa
           <input
             type="checkbox"
-            value="Espinafre"
-            id="Espinafre"
-            name="ingredient"
-            onChange={(e) => setIngredient(e.target.value)}
+            value="Tailandesa"
+            id="Tailandesa"
+            name="preference"
+            onChange={(e) => setPreference(e.target.value)}
           />
           <button className={classes.trashIconBtn} onClick={deleteIngredient}>
             <img src={trash} className={classes.trashIcon} />
           </button>
         </label>
         <label className={classes.checkboxFilter}>
-          Berinjela
+          Indiana
           <input
             type="checkbox"
-            value="Berinjela"
-            id="Berinjela"
-            name="ingredient"
-            onChange={(e) => setIngredient(e.target.value)}
+            value="Indiana"
+            id="Indiana"
+            name="preference"
+            onChange={(e) => setPreference(e.target.value)}
+          />
+          <button className={classes.trashIconBtn} onClick={deleteIngredient}>
+            <img src={trash} className={classes.trashIcon} />
+          </button>
+        </label>
+        <label className={classes.checkboxFilter}>
+          Mexicana
+          <input
+            type="checkbox"
+            value="Mexicana"
+            id="Mexicana"
+            name="preference"
+            onChange={(e) => setPreference(e.target.value)}
+          />
+          <button className={classes.trashIconBtn} onClick={deleteIngredient}>
+            <img src={trash} className={classes.trashIcon} />
+          </button>
+        </label>
+        <label className={classes.checkboxFilter}>
+          Grega
+          <input
+            type="checkbox"
+            value="Grega"
+            id="Grega"
+            name="preference"
+            onChange={(e) => setPreference(e.target.value)}
+          />
+          <button className={classes.trashIconBtn} onClick={deleteIngredient}>
+            <img src={trash} className={classes.trashIcon} />
+          </button>
+        </label>
+        <label className={classes.checkboxFilter}>
+          Francesa
+          <input
+            type="checkbox"
+            value="Francesa"
+            id="Francesa"
+            name="preference"
+            onChange={(e) => setPreference(e.target.value)}
+          />
+          <button className={classes.trashIconBtn} onClick={deleteIngredient}>
+            <img src={trash} className={classes.trashIcon} />
+          </button>
+        </label>
+
+        <label className={classes.checkboxFilter}>
+          Argentina
+          <input
+            type="checkbox"
+            value="Argentina"
+            id="Argentina"
+            name="preference"
+            onChange={(e) => setPreference(e.target.value)}
+          />
+          <button className={classes.trashIconBtn} onClick={deleteIngredient}>
+            <img src={trash} className={classes.trashIcon} />
+          </button>
+        </label>
+        <label className={classes.checkboxFilter}>
+          Portuguesa
+          <input
+            type="checkbox"
+            value="Portuguesa"
+            id="Portuguesa"
+            name="preference"
+            onChange={(e) => setPreference(e.target.value)}
+          />
+          <button className={classes.trashIconBtn} onClick={deleteIngredient}>
+            <img src={trash} className={classes.trashIcon} />
+          </button>
+        </label>
+        <label className={classes.checkboxFilter}>
+          Espanhola
+          <input
+            type="checkbox"
+            value="Espanhola"
+            id="Espanhola"
+            name="preference"
+            onChange={(e) => setPreference(e.target.value)}
           />
           <button className={classes.trashIconBtn} onClick={deleteIngredient}>
             <img src={trash} className={classes.trashIcon} />
@@ -200,9 +209,9 @@ const Ingredients = () => {
         </label>
       </section>
       <section className={classes.footer}>
-        {addIngInput ? (
-          <span className={classes.addIngInput}>
-            <input type="text" placeholder="Digite o ingrediente desejado" />
+        {addPrefInput ? (
+          <span className={classes.addPrefInput}>
+            <input type="text" placeholder="Digite a preferência desejada" />
             <button onClick={closeInput} className={classes.closeButton}>
               X
             </button>
@@ -213,7 +222,7 @@ const Ingredients = () => {
         ) : (
           ""
         )}
-        <div className={classes.ingredientsButtons}>
+        <div className={classes.preferencesButtons}>
           <button
             type="button"
             className={classes.deleteButton}
@@ -223,18 +232,22 @@ const Ingredients = () => {
           </button>
           <button
             type="button"
-            onClick={addIngredient}
-            className={classes.addIngredientButton}
+            onClick={addPreference}
+            className={classes.addPrefButton}
           >
-            Adicionar ingrediente
+            Adicionar preferência
           </button>
-          <Link to={"/preferences"} className={classes.nextButton}>
-            Escolher preferências
-          </Link>
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className={classes.nextButton}
+          >
+            Próxima etapa
+          </button>
         </div>
       </section>
     </>
   );
 };
 
-export default Ingredients;
+export default Preferences;
